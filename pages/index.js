@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import {
   DeviceMobileIcon,
   DesktopComputerIcon,
@@ -67,8 +68,14 @@ export default function Home() {
 
   return (
     <div>
-      <header className="py-8 px-12 flex justify-between items-center">
-        <div>Logo</div>
+      <header className="Nav">
+        <Link className="relative inline-block" href="/">
+          <img
+            className="-ml-8 w-28 md:ml-2 md:w-36"
+            src="https://www.codigo.co/img/ui/logo-codigo-red.svg"
+            alt="codigo"
+          />
+        </Link>
 
         <div
           className={
@@ -82,7 +89,7 @@ export default function Home() {
           aria-label="Hamburger menu"
           className={
             "MobileNav__button " +
-            (isMenuOpen ? "bg-transparent border-none" : "bg-brown")
+            (isMenuOpen ? "border-none bg-transparent" : "bg-brown")
           }
         >
           <div className="MobileNav__button__hamburger">
@@ -96,14 +103,14 @@ export default function Home() {
               className={
                 "MobileNav__button__hamburgerBar " +
                 (isMenuOpen
-                  ? "transform rotate-45 bg-white"
-                  : "mt-1 bg-transprent")
+                  ? "rotate-45 transform bg-white"
+                  : "bg-transprent mt-1")
               }
             ></div>
             <div
               className={
                 "MobileNav__button__hamburgerBar " +
-                (isMenuOpen ? "transform -rotate-45 absolute" : "mt-1")
+                (isMenuOpen ? "absolute -rotate-45 transform" : "mt-1")
               }
             ></div>
             <div
@@ -205,16 +212,16 @@ export default function Home() {
             </div>
           </ul>
 
-          <ul className="items-center justify-center space-x-12 text-sm hidden lg:flex">
-            <li>Work</li>
-            <li>Solutions</li>
-            <li>Services</li>
-            <li>About Us</li>
-            <li>Blog</li>
+          <ul className="DesktopNav">
+            <li className="DesktopNav__item">
+              <Link href="/">Work</Link>
+            </li>
+            <li className="DesktopNav__item">Solutions</li>
+            <li className="DesktopNav__item">Services</li>
+            <li className="DesktopNav__item">About Us</li>
+            <li className="DesktopNav__item">Blog</li>
             <li>
-              <button className="rounded-full py-3.5 font-semibold px-6 bg-brown text-white flex items-center justify-center transition-transform duration-300 hover:scale-105 shadow-md">
-                Request a quote
-              </button>
+              <button className="ActionBtn">Request a quote</button>
             </li>
           </ul>
         </nav>
@@ -233,7 +240,7 @@ export default function Home() {
       </section>
 
       <section className="Work__tags">
-        <div className="lg:w-10/12 xl:w-8/12 w-full">
+        <div className="w-full lg:w-10/12 xl:w-8/12">
           <div className="grid grid-cols-3 gap-x-0.5 gap-y-3">
             {tags.map((tag) => (
               <div
@@ -306,7 +313,7 @@ export default function Home() {
                     return (
                       <div
                         key={role.slug}
-                        className="bg-white p-1 rounded-full"
+                        className="rounded-full bg-white p-1"
                       >
                         {getRoleIcon(role.slug)}
                       </div>
