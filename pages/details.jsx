@@ -89,6 +89,7 @@ const Details = () => {
                 {images.map((image, i) => (
                   <div key={i}>
                     <img
+                      key={image.retina}
                       src={image.retina}
                       alt="slide_img"
                       className="w-[380px] max-w-[770px] sm:w-[700px]"

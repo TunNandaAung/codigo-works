@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   DeviceMobileIcon,
   DesktopComputerIcon,
   CogIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import { works } from "../lib/data";
+// import { works } from "../lib/data";
+import { apiUrl } from "../config";
 import { useQueryParam } from "../lib/hooks/useQueryParam";
-import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import MetaTags from "../components/MetaTags";
 
-const Home = () => {
+const Home = ({ works }) => {
   const tags = [
     { title: "All", slug: "all" },
     { title: "Food & Beverage", slug: "food-and-beverage" },
@@ -33,7 +34,6 @@ const Home = () => {
   const router = useRouter();
   const tagParam = useQueryParam("tag");
   const [selectedTag, setSeletedTag] = useState(tagParam || "all");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const filteredWorks = () => {
     return selectedTag === "all"
@@ -103,6 +103,7 @@ const Home = () => {
             ))}
           </div>
         </div>
+
         <section className="Work__legend">
           <div className="uppercase">
             <p className="font-bold">LEGEND</p>
@@ -127,45 +128,53 @@ const Home = () => {
           </div>
         </section>
       </section>
-
+      {filteredWorks() && filteredWorks().length === 0 && (
+        <p className="mt-8 w-full text-center font-bold">
+          {`There is no specific project related with the tag name(${tagParam})! Do you
+          want to show all the projects instead?`}
+        </p>
+      )}
       <section className="Work__gallery">
-        {filteredWorks().map((work, index) => (
-          <div
-            key={work.slug + index}
-            className={
-              (work.should_span ? "col-span-2" : "") +
-              " Work__gallery__item group"
-            }
-          >
-            <img
-              src={work.images.normal}
-              alt={work.name}
-              className="Work__gallery__image"
-            />
-            <div className="absolute inset-x-8 text-white">
-              <p className="Work__gallery__tag">
-                {work.tags && work.tags.map((tag) => tag.name).join(", ")}
-              </p>
-              <h2 className="Work__gallery__title">{work.name}</h2>
-            </div>
+        {filteredWorks() &&
+          filteredWorks().map((work, index) => (
+            <Link href={`/${work.slug}`}>
+              <div
+                key={work.slug + index}
+                className={
+                  (work.should_span ? "col-span-2" : "") +
+                  " Work__gallery__item group"
+                }
+              >
+                <img
+                  src={work.images.normal}
+                  alt={work.name}
+                  className="Work__gallery__image"
+                />
+                <div className="absolute inset-x-8 text-white">
+                  <p className="Work__gallery__tag">
+                    {work.tags && work.tags.map((tag) => tag.name).join(", ")}
+                  </p>
+                  <h2 className="Work__gallery__title">{work.name}</h2>
+                </div>
 
-            <div className="absolute inset-x-5 bottom-6 py-3 px-2">
-              <div className="flex items-center space-x-2">
-                {work.roles &&
-                  work.roles.map((role) => {
-                    return (
-                      <div
-                        key={role.slug}
-                        className="rounded-full bg-white p-1"
-                      >
-                        {getRoleIcon(role.slug)}
-                      </div>
-                    );
-                  })}
+                <div className="absolute inset-x-5 bottom-6 py-3 px-2">
+                  <div className="flex items-center space-x-2">
+                    {work.roles &&
+                      work.roles.map((role) => {
+                        return (
+                          <div
+                            key={role.slug}
+                            className="rounded-full bg-white p-1"
+                          >
+                            {getRoleIcon(role.slug)}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </Link>
+          ))}
       </section>
     </div>
   );
@@ -175,4 +184,10 @@ export default Home;
 
 Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
+};
+
+export const getStaticProps = async () => {
+  const res = await fetch(`${apiUrl}/works`);
+
+  return { props: { works: await res.json() } };
 };

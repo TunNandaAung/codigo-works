@@ -13,6 +13,58 @@ body {
   overflow-x: hidden;
 }
 
+.PageTransition {
+  &__wrapper {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    // background-color: white;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+
+    &--enter {
+      animation-name: PageTransition__enter;
+      animation-timing-function: cubic-bezier(0.4, 0.1, 0.1, 1);
+      animation-duration: 0.75s;
+      animation-fill-mode: backwards;
+    }
+  }
+
+  &__placeholder {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    &--exit {
+      animation-name: PageTransition__placeholder__exit;
+      animation-delay: 0.3s;
+      animation-duration: 0.4s;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+@keyframes PageTransition__enter {
+  0% {
+    transform: translate3d(-100vw, 0, 0);
+  }
+  to {
+    transform: translateZ(0);
+  }
+}
+
+@keyframes PageTransition__placeholder__exit {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .AnimApp {
   transform-style: preserve-3d;
 }
