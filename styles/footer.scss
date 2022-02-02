@@ -1,0 +1,80 @@
+@import "mixins/breakpoints";
+
+.Footer {
+  @apply bg-[#fafafa];
+
+  &__wrapper {
+    @apply flex flex-col items-center justify-center py-8;
+
+    @include laptop() {
+      @apply py-16;
+    }
+  }
+
+  &__header {
+    @apply text-red mb-8 text-center text-4xl font-bold leading-[4rem];
+
+    @include laptop() {
+      @apply mb-16;
+    }
+  }
+
+  &__contact {
+    @apply flex w-full flex-col items-start justify-start px-6;
+
+    @include laptop() {
+      @apply grid grid-cols-4 place-items-stretch gap-12 px-24;
+    }
+
+    @include desktop() {
+      @apply grid place-items-center px-32 pr-0;
+    }
+
+    &__item {
+      @apply hover:text-red w-full cursor-pointer border-b border-gray-300 pb-6 text-2xl font-bold leading-[4rem] transition-all duration-500;
+
+      @include tablet() {
+        @apply pb-8;
+      }
+
+      @include laptop() {
+        @apply border-b-0 pr-3 text-2xl;
+        &:not(:last-child) {
+          @apply border-r border-gray-300;
+        }
+      }
+
+      @include desktop() {
+        @apply mb-16 py-2 text-3xl font-bold leading-[4rem];
+      }
+
+      & h3 {
+        @apply flex items-center justify-between space-x-6 duration-500;
+
+        @include laptop() {
+          @apply justify-start;
+        }
+      }
+
+      &__icon {
+        @apply text-red h-6 w-6 transition-transform duration-500 group-hover:translate-x-4;
+
+        @include laptop() {
+          @apply h-4 w-4;
+        }
+
+        @include desktop() {
+          @apply h-6 w-6;
+        }
+      }
+
+      &__text {
+        @apply -mt-2 text-sm font-normal text-gray-800;
+
+        @include laptop() {
+          @apply mt-0;
+        }
+      }
+    }
+  }
+}

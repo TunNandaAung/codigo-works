@@ -20,7 +20,7 @@ const Nav = ({ shouldDisplayLinks }) => {
         <Link className="relative inline-block" href="/">
           <div className="flex items-center justify-center space-x-4">
             <ArrowLeftIcon className="text-red h-4 w-4"></ArrowLeftIcon>
-            <p cl>Back to works</p>
+            <p className="DesktopNav__item ">Back to works</p>
           </div>
         </Link>
       )}

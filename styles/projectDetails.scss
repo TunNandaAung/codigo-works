@@ -1,0 +1,237 @@
+.ProjectDetails {
+  &__wrapper {
+    @apply mx-auto mt-24 mb-64 flex w-[85%] overflow-hidden break-words;
+
+    @include tablet() {
+      @apply mx-12 mt-16;
+    }
+
+    @include laptop() {
+      @apply mx-20 mt-32;
+    }
+
+    @include desktop() {
+      @apply mx-28;
+    }
+  }
+
+  &__description {
+    @apply w-full;
+
+    @include laptop {
+      @apply w-1/2;
+    }
+
+    &__text {
+      @apply break-words text-[13vw] font-bold leading-[12vw];
+
+      animation: ProjectDetails__description__slideInBottom 2s
+        cubic-bezier(0.2, 1, 0.2, 1) backwards;
+
+      @include tablet() {
+        @apply text-[6.5vw] leading-[4rem];
+      }
+
+      @include laptop() {
+        @apply text-[4rem] leading-[4.1rem];
+      }
+
+      @include desktop() {
+        @apply text-[4rem];
+      }
+    }
+
+    &__body,
+    &__feats,
+    &__cta {
+      animation-name: ProjectDetails__description__slideInBottom;
+      animation-duration: 2s;
+      animation-fill-mode: backwards;
+      animation-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    }
+    &__body {
+      animation-delay: 0.7s;
+      @apply mt-12;
+
+      @include desktop() {
+        @apply max-w-md break-words;
+      }
+    }
+
+    &__feats {
+      animation-delay: 1s;
+      @apply mt-16 flex flex-col;
+
+      @include laptop() {
+        @apply flex-row space-x-16;
+      }
+
+      &__list {
+        @apply mt-3 flex flex-col space-y-3;
+
+        @include laptop() {
+          @apply mt-0 border-l border-gray-300 pl-6;
+        }
+      }
+    }
+
+    &__cta {
+      @apply mt-16 flex;
+      animation-delay: 0.4s;
+
+      @include tablet() {
+        @apply mt-32;
+      }
+
+      @include laptop() {
+        @apply mt-16;
+      }
+
+      &__box {
+        @apply flex flex-col items-start space-y-2  border border-gray-300 px-6 py-3;
+
+        @include tablet() {
+          @apply py-2 pr-20;
+        }
+
+        @include laptop() {
+          @apply flex-col items-start px-6 py-4;
+        }
+
+        @include desktop() {
+          @apply flex-row items-center space-x-6 px-6 py-4;
+        }
+      }
+    }
+  }
+
+  &__showcase {
+    @apply relative my-20 mx-auto h-[19rem] w-[19rem];
+
+    @include tablet() {
+      @apply my-32 h-[32.5rem] w-[32.5rem];
+    }
+
+    @include laptop() {
+      @apply h-[22rem] w-[22rem];
+    }
+
+    @include desktop() {
+      @apply absolute top-36 left-[45%] w-1/2 py-64;
+    }
+
+    &__circle {
+      animation-name: ProjectDetails__showcase__circle__enter;
+      animation-duration: 0.8s;
+      animation-fill-mode: backwards;
+      animation-timing-function: cubic-bezier(0.52, 0.2, 0.415, 1.32);
+      transform-origin: top left;
+      max-width: 580px;
+      max-height: 580px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      // position: relative;
+      // overflow: hidden;
+
+      @apply h-full w-full;
+
+      @include desktop() {
+        position: absolute;
+        width: 50vw;
+        height: 50vw;
+      }
+    }
+
+    &__slider {
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      animation-name: ProjectDetails__showcase__slider__enter;
+      animation-duration: 0.8s;
+      animation-delay: 0.4s;
+      animation-fill-mode: backwards;
+      animation-timing-function: cubic-bezier(0.52, 0.2, 0.415, 1.32);
+      @apply absolute left-1/2 top-1/2 w-96;
+
+      @include tablet() {
+        @apply w-[43rem];
+      }
+
+      @include laptop() {
+        @apply w-[31rem];
+      }
+
+      @include desktop() {
+        width: 58vw * 0.95;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+      }
+
+      @media (min-width: 1480px) {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.ProjectDetails__navigate__button {
+  @apply bg-red flex items-end rounded-full p-8 transition-transform duration-500;
+
+  &__arrow {
+    @apply h-8 w-8 pl-3 text-white transition-transform duration-500;
+  }
+}
+
+@keyframes ProjectDetails__description__slideInBottom {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 15px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes ProjectDetails__showcase__circle__enter {
+  0% {
+    transform: scale3d(0, 0, 1) translate3d(-50%, -50%, 0);
+    border-radius: 43% 57% 56% 44%/55% 40% 60% 45%;
+  }
+  5% {
+    transform: scale3d(0, 0, 1) translate3d(-50%, -50%, 0);
+  }
+  30% {
+    border-radius: 43% 57% 47% 53%/46% 46% 54% 54%;
+  }
+  70% {
+    border-radius: 49% 51% 43% 57%/55% 48% 52% 45%;
+  }
+  100% {
+    transform: scaleX(1) translate3d(-50%, -50%, 0);
+    border-radius: 50% 50% 50% 50%/50% 50% 50% 50%;
+  }
+}
+
+@keyframes ProjectDetails__showcase__slider__enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, -50%);
+  }
+}

@@ -1,0 +1,31 @@
+.slick-dots {
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
+.slick-dots li {
+  display: inline-block;
+}
+.slick-dots li:not(:last-child) {
+  margin-right: 0.8px;
+}
+.slick-dots li button {
+  font-size: 0;
+  width: 10px;
+  height: 10px;
+  background: #cacaca;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.slick-dots li button::before {
+  content: "";
+}
+.slick-dots li.slick-active button {
+  background-color: #d5333e;
+}
+.scrollbar-track.scrollbar-track-y {
+  width: 4px;
+  background: none;
+}

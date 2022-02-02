@@ -1,0 +1,192 @@
+@import "mixins/breakpoints";
+
+.Work {
+  &__hero {
+    @apply mx-auto mt-28 flex w-[85%] break-words;
+
+    @include tablet() {
+      @apply mx-14;
+    }
+
+    @include laptop() {
+      @apply mx-auto w-3/4;
+    }
+
+    @include desktop() {
+      @apply mx-44 w-3/4;
+    }
+
+    &__text {
+      @apply text-[13vw] font-bold leading-[12vw];
+
+      animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1)
+        0.2s backwards;
+
+      @include tablet() {
+        @apply text-[6.5vw] leading-[4rem];
+      }
+
+      @include laptop() {
+        @apply text-[4rem] leading-[4.1rem];
+      }
+
+      @include desktop() {
+        @apply text-[4rem];
+      }
+    }
+  }
+
+  &__tags {
+    @apply mx-44 mt-16 hidden items-end justify-between;
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1) 0.3s
+      backwards;
+
+    @include tablet() {
+      @apply ml-8 mr-16 flex flex-col items-start space-y-16;
+    }
+
+    @include laptop() {
+      @apply mx-32 flex flex-row items-end justify-between;
+    }
+
+    @include desktop() {
+      @apply mx-40 mt-16 flex flex-row items-end justify-between;
+    }
+
+    &__item {
+      @apply relative cursor-pointer self-center px-4 py-1;
+
+      &::before {
+        content: "";
+        transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        @apply bg-red absolute left-0 top-1/2 inline-block  h-[2.5px] w-0 -translate-y-1/2 rounded-full;
+      }
+
+      &__text {
+        transition: padding-left 0.6s cubic-bezier(0.2, 1, 0.2, 1), top 1.5s;
+        @apply relative;
+      }
+
+      &.is-active {
+        &::before {
+          margin-left: 25px;
+          width: 15px;
+        }
+        .Work__tags__item__text {
+          padding-left: 25px;
+          @apply ml-2 font-bold;
+        }
+      }
+    }
+  }
+
+  &__legend {
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1) 0.3s
+      backwards;
+    @apply mr-20 flex items-end justify-end text-xs;
+
+    @include tablet() {
+      @apply ml-4;
+    }
+
+    @include laptop() {
+      @apply ml-0 mr-20;
+    }
+
+    &__wrapper {
+      @apply mt-3 grid grid-cols-2 gap-x-8 gap-y-5 border-l border-gray-700 py-2 pl-4;
+
+      & p {
+        @apply flex space-x-2;
+      }
+    }
+  }
+
+  &__gallery {
+    @apply mt-12;
+
+    @include tablet() {
+      @apply grid grid-flow-row-dense grid-cols-2;
+    }
+
+    @include laptop() {
+      @apply grid grid-cols-3;
+    }
+
+    @include desktop() {
+      @apply grid grid-cols-4;
+    }
+
+    &__item {
+      @apply relative h-[17.5rem] cursor-pointer overflow-hidden bg-gray-200 px-5 py-8 shadow-xl transition-all;
+      transform-origin: 80% 90%;
+      animation: Work__gallery__scaleFadeIn 0.8s cubic-bezier(0.4, 0.6, 0.6, 1)
+        both;
+      @for $i from 1 to 30 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.25s;
+        }
+      }
+
+      @include tablet() {
+        @apply h-[42vw];
+      }
+
+      @include laptop() {
+        @apply h-[32.5vw];
+      }
+
+      @include desktop() {
+        @apply h-[31rem];
+      }
+
+      &::after {
+        content: "";
+        @apply absolute inset-0 h-full w-full bg-black bg-opacity-0 transition duration-[1.95s];
+      }
+
+      &:hover::after {
+        @apply bg-black bg-opacity-50;
+      }
+    }
+
+    &__image {
+      @apply absolute inset-0 h-full w-full object-cover filter transition duration-[1.95s] group-hover:scale-110;
+    }
+
+    &__tag {
+      @apply mb-2 text-[0.8rem] font-semibold capitalize;
+    }
+
+    &__title {
+      @apply text-3xl font-bold;
+
+      @include laptop() {
+        @apply text-2xl;
+      }
+    }
+  }
+}
+
+@keyframes Work__hero__slideInBottom {
+  0% {
+    transform: translate3d(0, 70px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes Work__gallery__scaleFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100px, 0) scale3d(0.95, 0.95, 0.95)
+      rotate3d(1, 0.05, 0, 5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scaleX(1) rotate3d(0, 0, 0, 0);
+  }
+}
