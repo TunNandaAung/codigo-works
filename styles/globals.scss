@@ -2,56 +2,258 @@
 @tailwind components;
 @tailwind utilities;
 
-.Work{
-  &__hero{
-    @apply text-[4rem] leading-[4rem] font-bold;
-    animation: Work__hero__slideInBottom 1.95s cubic-bezier(.2,1,.3,1) .2s backwards;
-  }
+@import "mixins/breakpoints";
 
-  &__tags{
-    @apply mx-44 mt-16 flex items-end justify-between;
-    animation: Work__hero__slideInBottom 1.95s cubic-bezier(.2,1,.3,1) .3s backwards;
+.Work {
+  &__hero {
+    @apply w-[85%] mx-auto mt-28 flex break-words;
 
-    &__item{
-      @apply relative cursor-pointer px-4 py-1 self-center;
+    @include tablet() {
+      @apply mx-14;
+    }
 
-      &::before{
-        content: "";
-          transition: width .4s cubic-bezier(.2,1,.2,1);
-          @apply bg-red absolute left-0 top-1/2 -translate-y-1/2  -mt-[1px] inline-block h-[2px] w-0;
+    @include laptop() {
+      @apply w-3/4 mx-auto;
+    }
+
+    @include desktop() {
+      @apply mx-44 w-3/4;
+    }
+
+    &__text {
+      @apply text-[13vw] leading-[12vw] font-bold;
+
+      animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1)
+        0.2s backwards;
+
+      @include tablet() {
+        @apply text-[6.5vw] leading-[4rem];
       }
 
-      &__text{
-        transition: margin-left .6s cubic-bezier(.2,1,.2,1),top 1.5s;
+      @include laptop() {
+        @apply text-[4rem] leading-[4.1rem];
+      }
+
+      @include desktop() {
+        @apply text-[4rem];
+      }
+    }
+  }
+
+  &__tags {
+    @apply mx-44 mt-16 items-end justify-between hidden;
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1) 0.3s
+      backwards;
+
+    @include tablet() {
+      @apply flex ml-8 mr-16 flex-col items-start space-y-16;
+    }
+
+    @include laptop() {
+      @apply flex mx-32 flex-row items-end justify-between;
+    }
+
+    @include desktop() {
+      @apply mx-40 flex flex-row mt-16 items-end justify-between;
+    }
+
+    &__item {
+      @apply relative cursor-pointer px-4 py-1 self-center;
+
+      &::before {
+        content: "";
+        transition: width 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        @apply bg-red absolute left-0 top-1/2 -translate-y-1/2  inline-block h-[2.5px] w-0 rounded-full;
+      }
+
+      &__text {
+        transition: padding-left 0.6s cubic-bezier(0.2, 1, 0.2, 1), top 1.5s;
         @apply relative;
       }
 
-      &.is-active{
-        &::before{
+      &.is-active {
+        &::before {
+          margin-left: 25px;
           width: 15px;
         }
-        .Work__tags__item__text{
+        .Work__tags__item__text {
+          padding-left: 25px;
           @apply font-bold ml-2;
         }
       }
     }
   }
 
-  &__gallery{
-    @apply grid grid-cols-4 mt-16;
+  &__legend {
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(0.2, 1, 0.3, 1) 0.3s
+      backwards;
+    @apply flex items-end justify-end text-xs mr-20;
 
-    &__item{
-      @apply relative h-[30rem] px-5 py-8 bg-gray-200 overflow-hidden shadow-xl;
-      transform-origin: 80% 90%;
-    animation: Work__gallery__scaleFadeIn .8s  cubic-bezier(.4,.6,.6,1) .4s both;
+    @include tablet() {
+      @apply ml-4;
+    }
+
+    @include laptop() {
+      @apply ml-0 mr-20;
+    }
+
+    &__wrapper {
+      @apply border-l border-gray-700 grid grid-cols-2 pl-4 py-2 gap-x-8 gap-y-5 mt-3;
+
+      & p {
+        @apply flex space-x-2;
+      }
     }
   }
 
+  &__gallery {
+    @apply mt-12;
+
+    @include tablet() {
+      @apply grid grid-cols-2 grid-flow-row-dense;
+    }
+
+    @include laptop() {
+      @apply grid grid-cols-3;
+    }
+
+    @include desktop() {
+      @apply grid grid-cols-4;
+    }
+
+    &__item {
+      @apply relative h-[17.5rem] px-5 py-8 bg-gray-200 overflow-hidden shadow-xl cursor-pointer transition-all;
+      transform-origin: 80% 90%;
+      animation: Work__gallery__scaleFadeIn 0.8s cubic-bezier(0.4, 0.6, 0.6, 1)
+        both;
+      @for $i from 1 to 30 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * 0.25s;
+        }
+      }
+
+      @include tablet() {
+        @apply h-[42vw];
+      }
+
+      @include laptop() {
+        @apply h-[32.5vw];
+      }
+
+      @include desktop() {
+        @apply h-[31rem];
+      }
+
+      &::after {
+        content: "";
+        @apply absolute inset-0 w-full h-full bg-black bg-opacity-0 transition duration-[1.95s];
+      }
+
+      &:hover::after {
+        @apply bg-black bg-opacity-50;
+      }
+    }
+
+    &__image {
+      @apply absolute w-full h-full inset-0 object-cover transition duration-[1.95s] filter group-hover:scale-110;
+    }
+
+    &__tag {
+      @apply text-[0.8rem] font-semibold mb-2 capitalize;
+    }
+
+    &__title {
+      @apply text-3xl font-bold;
+
+      @include laptop() {
+        @apply text-2xl;
+      }
+    }
+  }
 }
 
-@keyframes Work__hero__slideInBottom{
-  0%{
-    transform: translate3d(0,70px,0);
+.Footer {
+  @apply bg-[#fafafa];
+
+  &__wrapper {
+    @apply py-8 flex flex-col items-center justify-center;
+
+    @include laptop() {
+      @apply py-16;
+    }
+  }
+
+  &__header {
+    @apply text-4xl leading-[4rem] font-bold text-center text-red mb-8;
+
+    @include laptop() {
+      @apply mb-16;
+    }
+  }
+
+  &__contact {
+    @apply flex flex-col items-start justify-start px-6 w-full;
+
+    @include laptop() {
+      @apply grid grid-cols-4 gap-12 place-items-stretch px-24;
+    }
+
+    @include desktop() {
+      @apply grid place-items-center px-32 pr-0;
+    }
+
+    &__item {
+      @apply text-2xl w-full leading-[4rem] font-bold cursor-pointer border-b border-gray-300 pb-6 hover:text-red transition-all duration-500;
+
+      @include tablet() {
+        @apply pb-8;
+      }
+
+      @include laptop() {
+        @apply pr-3 text-2xl border-b-0;
+        &:not(:last-child) {
+          @apply border-r border-gray-300;
+        }
+      }
+
+      @include desktop() {
+        @apply text-3xl leading-[4rem] font-bold mb-16 py-2;
+      }
+
+      & h3 {
+        @apply flex justify-between items-center space-x-6 duration-500;
+
+        @include laptop() {
+          @apply justify-start;
+        }
+      }
+
+      &__icon {
+        @apply h-6 w-6 text-red group-hover:translate-x-4 transition-transform duration-500;
+
+        @include laptop() {
+          @apply h-4 w-4;
+        }
+
+        @include desktop() {
+          @apply h-6 w-6;
+        }
+      }
+
+      &__text {
+        @apply text-sm text-gray-800 font-normal -mt-2;
+
+        @include laptop() {
+          @apply mt-0;
+        }
+      }
+    }
+  }
+}
+
+@keyframes Work__hero__slideInBottom {
+  0% {
+    transform: translate3d(0, 70px, 0);
     opacity: 0;
   }
   100% {
@@ -63,11 +265,194 @@
 @keyframes Work__gallery__scaleFadeIn {
   0% {
     opacity: 0;
-    transform: translate3d(0,-100px,0) scale3d(.95,.95,.95) rotate3d(1,.05,0,5deg);
+    transform: translate3d(0, -100px, 0) scale3d(0.95, 0.95, 0.95)
+      rotate3d(1, 0.05, 0, 5deg);
   }
   100% {
     opacity: 1;
-    transform: translateZ(0) scaleX(1) rotate3d(0,0,0,0);
+    transform: translateZ(0) scaleX(1) rotate3d(0, 0, 0, 0);
   }
 }
 
+.MobileNav__bg {
+  @apply fixed top-3 right-6 z-20 h-10 w-10 transform rounded-full bg-brown p-2 transition-all duration-[.8s];
+
+  @media (min-width: 650px) {
+    @apply top-3 right-6;
+  }
+
+  @media (min-width: 761px) {
+    @apply top-6 right-12;
+  }
+
+  @include laptop() {
+    display: none;
+  }
+
+  &--open {
+    @apply scale-[40.5];
+
+    @include tablet {
+      @apply scale-[48.5];
+    }
+  }
+
+  &--close {
+    @apply scale-100 rounded-full;
+  }
+}
+
+.MobileNav__button {
+  @apply fixed top-2.5 right-5 z-30 rounded-full p-2 md:top-5 md:right-10;
+
+  @include laptop() {
+    display: none;
+  }
+
+  &__hamburger {
+    @apply relative z-20 flex h-8 w-8 flex-col items-center justify-center;
+
+    &Bar {
+      &:nth-child(1),
+      &:nth-child(4) {
+        @apply h-[0.2rem] w-6 rounded-full bg-white transition-all duration-500 ease-in-out;
+      }
+
+      &:nth-child(2) {
+        @apply absolute top-3.5 h-[0.2rem] w-6 rounded-full transition-all duration-500 ease-in-out;
+      }
+
+      &:nth-child(3) {
+        @apply top-3.5 h-[0.2rem] w-6 rounded-full bg-white transition-all duration-500 ease-in-out;
+      }
+    }
+  }
+}
+
+.MobileNav__items {
+  @apply h-full fixed inset-0 z-20 flex flex-col items-center justify-center text-2xl text-white font-bold space-y-6 overflow-hidden;
+
+  @include laptop() {
+    display: none;
+  }
+
+  & li {
+    @apply overflow-hidden h-10;
+  }
+
+  & li > p {
+    transition: all 1s;
+    transition-delay: 0.5s;
+    transform-origin: 0;
+    transition-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    transform: skewY(40deg) translateY(50px);
+    margin-bottom: -10px;
+    overflow: hidden;
+    opacity: 0;
+    position: relative;
+    top: 0;
+    @apply text-2xl;
+
+    &::before {
+      content: "";
+      width: 0;
+      height: 1px;
+      background: #fff;
+      display: inline-block;
+      position: absolute;
+      top: calc(100% + 3px);
+      left: -1px;
+      transition: 0.5s cubic-bezier(0.4, 0.6, 0.6, 1);
+    }
+
+    &::after {
+      display: block;
+      content: attr(data-text);
+      font-weight: 700;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+    }
+  }
+
+  &--enter li > p {
+    animation-name: MobileNav__items__enter;
+    animation-duration: 1s;
+    animation-delay: 0.4s;
+    animation-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    transform-origin: 0;
+    animation-fill-mode: both;
+
+    &::before {
+      width: 100%;
+    }
+  }
+
+  &--exit li > p {
+    animation-name: MobileNav__items__exit;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    transform-origin: 0;
+    animation-fill-mode: both;
+  }
+}
+
+.MobileNav__social {
+  @apply flex justify-center items-center space-x-10 pt-24;
+
+  &--enter {
+    animation-name: MobileNav__social__enter;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    animation-fill-mode: both;
+  }
+
+  &--exit {
+    animation-name: MobileNav__social__exit;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.2, 1, 0.2, 1);
+    animation-fill-mode: both;
+  }
+}
+
+@keyframes MobileNav__items__enter {
+  0% {
+    transform: skewY(40deg) translateY(50px);
+    margin-bottom: -10px;
+  }
+  to {
+    transform: skewY(0) translate(0);
+    margin-bottom: 0px;
+    opacity: 100%;
+  }
+}
+
+@keyframes MobileNav__items__exit {
+  0% {
+    transform: skewY(0) translate(0);
+    margin-bottom: 0px;
+    opacity: 100%;
+  }
+  to {
+    transform: skewY(40deg) translateY(50px);
+    margin-bottom: -10px;
+  }
+}
+
+@keyframes MobileNav__social__enter {
+  0%,
+  40% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes MobileNav__social__exit {
+  0% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
