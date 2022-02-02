@@ -151,7 +151,7 @@ const MobileNav = ({ shouldDisplayLinks, isMenuOpen }) => {
         <p>Request a quote</p>
       </li>
       <li>
-        <p>{"Let&apos; chat"}</p>
+        <p>{"Let's chat"}</p>
       </li>
 
       <div
