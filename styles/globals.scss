@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.Work{
+  &__hero{
+    @apply text-[4rem] leading-[4rem] font-bold;
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(.2,1,.3,1) .2s backwards;
+  }
+
+  &__tags{
+    @apply mx-44 mt-16 flex items-end justify-between;
+    animation: Work__hero__slideInBottom 1.95s cubic-bezier(.2,1,.3,1) .3s backwards;
+
+    &__item{
+      @apply relative cursor-pointer px-4 py-1 self-center;
+
+      &::before{
+        content: "";
+          transition: width .4s cubic-bezier(.2,1,.2,1);
+          @apply bg-red absolute left-0 top-1/2 -translate-y-1/2  -mt-[1px] inline-block h-[2px] w-0;
+      }
+
+      &__text{
+        transition: margin-left .6s cubic-bezier(.2,1,.2,1),top 1.5s;
+        @apply relative;
+      }
+
+      &.is-active{
+        &::before{
+          width: 15px;
+        }
+        .Work__tags__item__text{
+          @apply font-bold ml-2;
+        }
+      }
+    }
+  }
+
+  &__gallery{
+    @apply grid grid-cols-4 mt-16;
+
+    &__item{
+      @apply relative h-[30rem] px-5 py-8 bg-gray-200 overflow-hidden shadow-xl;
+      transform-origin: 80% 90%;
+    animation: Work__gallery__scaleFadeIn .8s  cubic-bezier(.4,.6,.6,1) .4s both;
+    }
+  }
+
+}
+
+@keyframes Work__hero__slideInBottom{
+  0%{
+    transform: translate3d(0,70px,0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes Work__gallery__scaleFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0,-100px,0) scale3d(.95,.95,.95) rotate3d(1,.05,0,5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) scaleX(1) rotate3d(0,0,0,0);
+  }
+}
+
