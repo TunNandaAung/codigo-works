@@ -180,7 +180,7 @@
 }
 
 .MobileNav__social {
-  @apply flex items-center justify-center space-x-10 pt-24;
+  @apply flex items-center justify-center space-x-10;
 
   &--enter {
     animation-name: MobileNav__social__enter;

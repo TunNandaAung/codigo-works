@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="Footer">
       <section className="Footer__wrapper">
-        <h1 className="Footer__header">Let's have a chat</h1>
+        <h1 className="Footer__header">{"Let's have a chat"}</h1>
 
         <div className="Footer__contact">
           <a className="Footer__contact__item group">

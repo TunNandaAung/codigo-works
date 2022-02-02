@@ -52,7 +52,7 @@ const Home = ({ works }) => {
       undefined,
       { scroll: false, shallow: false }
     );
-  }, [selectedTag]);
+  }, [router,selectedTag]);
 
   const getRoleIcon = (role) => {
     switch (role) {
@@ -137,7 +137,7 @@ const Home = ({ works }) => {
       <section className="Work__gallery">
         {filteredWorks() &&
           filteredWorks().map((work, index) => (
-            <Link href={`/${work.slug}`}>
+            <Link href={`/${work.slug}`} key={work.slug}>
               <div
                 key={work.slug + index}
                 className={
@@ -186,7 +186,7 @@ Home.getLayout = function getLayout(page) {
   return <Layout>{page}</Layout>;
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch(`${apiUrl}/works`);
 
   return { props: { works: await res.json() } };

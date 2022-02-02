@@ -7,7 +7,12 @@
 @import "nav";
 @import "works";
 @import "slick";
-@import "projectDetails.scss";
+@import "workDetails.scss";
+
+::selection {
+  background: #00f;
+  color: white;
+}
 
 body {
   overflow-x: hidden;

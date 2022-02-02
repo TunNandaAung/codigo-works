@@ -5,35 +5,37 @@ import Router from "next/router";
 function MyApp({ Component, pageProps, router }) {
   const getLayout = Component.getLayout || ((page) => page);
 
-  const [show, setShow] = useState(false);
+  const [showPageTransition, setShowPageTransition] = useState(false);
 
   Router.events.on("routeChangeStart", (url) => {
-    setShow(true);
+    if (url.indexOf("?") === -1) {
+      setShowPageTransition(true);
+    }
   });
   Router.events.on("routeChangeComplete", () => {
-    setShow(false);
+    setShowPageTransition(false);
   });
-  Router.events.on("routeChangeError", () => setShow(false));
+  Router.events.on("routeChangeError", () => setShowPageTransition(false));
 
   return (
     <>
       <section
       // className={
       //   "PageTransitions__placeholder PageTransitions__placeholder--exit  " +
-      //   (show ? "" : "hidden")
+      //   (showPageTransition ? "" : "hidden")
       // }
       >
         <div
           className={
             "PageTransition__wrapper PageTransition__wrapper--enter bg-red " +
-            (show ? "" : "hidden")
+            (showPageTransition ? "" : "hidden")
           }
           style={{ animationDuration: "0.5s" }}
         ></div>
         <div
           className={
             "PageTransition__wrapper PageTransition__wrapper--enter  bg-white " +
-            (show ? "" : "hidden")
+            (showPageTransition ? "" : "hidden")
           }
           style={{ animationDelay: "0.2s" }}
         ></div>

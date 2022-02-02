@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 const Nav = ({ shouldDisplayLinks }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,7 +19,7 @@ const Nav = ({ shouldDisplayLinks }) => {
         </Link>
       ) : (
         <Link className="relative inline-block" href="/">
-          <div className="flex items-center justify-center space-x-4">
+          <div className="-ml-8 flex items-center justify-center space-x-4 md:ml-2">
             <ArrowLeftIcon className="text-red h-4 w-4"></ArrowLeftIcon>
             <p className="DesktopNav__item ">Back to works</p>
           </div>
@@ -50,13 +51,19 @@ const Nav = ({ shouldDisplayLinks }) => {
 };
 
 const DesktopNav = ({ shouldDisplayLinks }) => {
+  const router = useRouter();
+
   return (
     <ul className="DesktopNav">
       {shouldDisplayLinks && (
         <>
           {" "}
           <li className="DesktopNav__item">
-            <Link href="/">Work</Link>
+            <Link href="/">
+              <span className={router.pathname == "/" ? "font-bold" : ""}>
+                Work
+              </span>
+            </Link>
           </li>
           <li className="DesktopNav__item">Solutions</li>
           <li className="DesktopNav__item">Services</li>
@@ -115,13 +122,13 @@ const MobileNav = ({ shouldDisplayLinks, isMenuOpen }) => {
   return (
     <ul
       className={
-        "MobileNav__items " +
-        (isMenuOpen ? "MobileNav__items--enter" : "MobileNav__items--exit")
+        isMenuOpen
+          ? "MobileNav__items MobileNav__items--enter"
+          : "MobileNav__items--exit hidden"
       }
     >
       {shouldDisplayLinks && (
         <>
-          {" "}
           <li>
             <p>Work</p>
           </li>
@@ -144,7 +151,7 @@ const MobileNav = ({ shouldDisplayLinks, isMenuOpen }) => {
         <p>Request a quote</p>
       </li>
       <li>
-        <p>{"Let's chat"}</p>
+        <p>{"Let&apos; chat"}</p>
       </li>
 
       <div
